@@ -4,7 +4,7 @@ const {
   POSTGRES_PASSWORD,
   POSTGRES_USER,
   POSTGRES_DB
-} = require('./config')
+} = require('./general.config')
 
 // const sequelize = new Sequelize({
 //   dialect: 'sqlite',

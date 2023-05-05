@@ -1,8 +1,8 @@
 const express = require('express')
 const postController = require('../controllers/post.controller')
-const { requireAuth } = require('../middlewares/authenticate')
+const { requireAuth } = require('../middlewares/authenticate.middleware')
 const { postCreateSchema, postEditSchema } = require('../schemas/post.schema')
-const validateSchema = require('../middlewares/validateSchema')
+const validateSchema = require('../middlewares/validateSchema.middleware')
 
 const router = express.Router()
 

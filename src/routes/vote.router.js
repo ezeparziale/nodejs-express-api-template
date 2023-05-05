@@ -1,8 +1,8 @@
 const express = require('express')
 const voteController = require('../controllers/vote.controller')
-const { requireAuth } = require('../middlewares/authenticate')
+const { requireAuth } = require('../middlewares/authenticate.middleware')
 const { voteSchema } = require('../schemas/vote.schema')
-const validateSchema = require('../middlewares/validateSchema')
+const validateSchema = require('../middlewares/validateSchema.middleware')
 
 const router = express.Router()
 

@@ -2,7 +2,7 @@ const { DataTypes, Model } = require('sequelize')
 const Post = require('./post.model')
 const Vote = require('./vote.model')
 
-const sequelize = require('../config/database')
+const sequelize = require('../configs/db.config')
 
 class User extends Model { }
 

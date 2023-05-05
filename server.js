@@ -1,4 +1,4 @@
-const { PORT } = require('./src/config/config')
+const { PORT } = require('./src/configs/general.config')
 const app = require('./src/app')
 
 // Server

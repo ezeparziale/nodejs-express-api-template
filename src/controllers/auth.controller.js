@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 const User = require('../models/user.model')
-const { createAccessToken } = require('../utils/jwt')
+const { createAccessToken } = require('../utils/jwt.util')
 
 const loginUser = async (req, res) => {
   const { username, password } = req.body

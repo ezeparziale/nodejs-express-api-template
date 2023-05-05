@@ -1,7 +1,7 @@
 const { DataTypes, Model } = require('sequelize')
 const Vote = require('./vote.model')
 
-const sequelize = require('../config/database')
+const sequelize = require('../configs/db.config')
 
 class Post extends Model { }
 
