@@ -27,7 +27,7 @@ const router = express.Router()
  *     auth:
  *       type: object
  *       properties:
- *         email:
+ *         username:
  *           type: string
  *           description: User email
  *           example: user@example.com
@@ -50,7 +50,7 @@ const router = express.Router()
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/auth'
- *         required: ["email", "password"]
+ *         required: ["username", "password"]
  *     responses:
  *       200:
  *         description: A bearer token for user authentication
