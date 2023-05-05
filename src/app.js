@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const { swaggerSpec, swaggerUi } = require('./utils/swagger.util')
@@ -9,6 +10,7 @@ const userRouter = require('./routes/user.router')
 const voteRouter = require('./routes/vote.router')
 
 // Middlewares
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan('dev'))
 app.use(express.json({
