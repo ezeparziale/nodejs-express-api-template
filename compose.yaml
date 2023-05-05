@@ -1,0 +1,34 @@
+services:
+
+  postgres:
+    image: postgres:15.2
+    hostname: postgres_db
+    container_name: postgres_db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    networks:
+      - node_demo_net
+
+  adminer:
+    image: adminer:4.8.1
+    hostname: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - node_demo_net
+
+volumes:
+  postgres-db:
+
+networks:
+  node_demo_net:
+    name: node_demo_net
