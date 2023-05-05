@@ -1,0 +1,48 @@
+const { DataTypes, Model } = require('sequelize')
+const Post = require('./post.model')
+const Vote = require('./vote.model')
+
+const sequelize = require('../config/database')
+
+class User extends Model { }
+
+User.init({
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      isEmail: true
+    }
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+}, {
+  sequelize,
+  tableName: 'users'
+})
+
+User.hasMany(Post,
+  {
+    as: 'author',
+    foreignKey: 'authorId',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
+
+User.hasMany(Vote,
+  {
+    as: 'user',
+    foreignKey: 'userId',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
+
+module.exports = User
