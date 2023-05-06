@@ -204,6 +204,16 @@ router.get('/:userId', requireAuth, userController.getOneUser)
  *                 id:
  *                   type: integer
  *                   description: The ID of the created user.
+ *       409:
+ *         description: User already exists
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: User already exists
  *       500:
  *         description: Error occurred while creating the user.
  *         content:
