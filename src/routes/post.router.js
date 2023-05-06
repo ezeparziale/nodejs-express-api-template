@@ -22,7 +22,7 @@ const router = express.Router()
  *         id:
  *           type: integer
  *           format: int64
- *           description: Title of post
+ *           description: Id of post
  *           example: 1
  *         title:
  *           type: string
@@ -142,7 +142,7 @@ router.get('/', requireAuth, postController.getAllPost)
 
 /**
  * @swagger
- * /api/v1/posts/{id}:
+ * /api/v1/posts/{postId}:
  *   get:
  *     security:
  *       - BearerAuth: []
@@ -151,7 +151,7 @@ router.get('/', requireAuth, postController.getAllPost)
  *     description: Get a post
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: postId
  *         schema:
  *           type: integer
  *         required: true
@@ -212,6 +212,18 @@ router.get('/:postId', requireAuth, postController.getOnePost)
  *                 message:
  *                   type: string
  *                   example: Invalid JSON
+ *       422:
+ *         description: Validation Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   example: "'title' is required"
  *       500:
  *         description: Error updating post
  *         content:
@@ -230,7 +242,7 @@ router.post('/', requireAuth, validateSchema(postCreateSchema), postController.c
 
 /**
  * @swagger
- * /api/v1/posts/{id}:
+ * /api/v1/posts/{postId}:
  *   put:
  *     security:
  *       - BearerAuth: []
@@ -239,7 +251,7 @@ router.post('/', requireAuth, validateSchema(postCreateSchema), postController.c
  *     description: Update a post
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: postId
  *         schema:
  *           type: integer
  *         required: true
@@ -273,6 +285,18 @@ router.post('/', requireAuth, validateSchema(postCreateSchema), postController.c
  *                   example: Invalid JSON
  *       404:
  *         description: Post not found
+ *       422:
+ *         description: Validation Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   example: "'title' is required"
  *       500:
  *         description: Error updating post
  *         content:
@@ -291,7 +315,7 @@ router.put('/:postId', requireAuth, validateSchema(postEditSchema), postControll
 
 /**
  * @swagger
- * /api/v1/posts/{id}:
+ * /api/v1/posts/{postId}:
  *   delete:
  *     security:
  *       - BearerAuth: []
@@ -300,7 +324,7 @@ router.put('/:postId', requireAuth, validateSchema(postEditSchema), postControll
  *     description: Delete a post by ID
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: postId
  *         schema:
  *           type: integer
  *         required: true

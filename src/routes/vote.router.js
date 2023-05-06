@@ -86,6 +86,18 @@ const router = express.Router()
  *                   type: string
  *               example:
  *                 message: Vote already exists
+ *       422:
+ *         description: Validation Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   example: "'postId' is required"
  *       500:
  *         description: Error voting post
  *         content:

@@ -1,6 +1,8 @@
 const express = require('express')
 const userController = require('../controllers/user.controller')
 const { requireAuth } = require('../middlewares/authenticate.middleware')
+const { userCreateSchema} = require('../schemas/user.schema')
+const validateSchema = require('../middlewares/validateSchema.middleware')
 
 const router = express.Router()
 
@@ -120,11 +122,11 @@ router.get('/', requireAuth, userController.getAllUser)
  *                   type: string
  *                   description: Detailed error message.
  */
-router.get('/me', requireAuth, requireAuth, userController.getMe)
+router.get('/me', requireAuth, userController.getMe)
 
 /**
  * @swagger
- * /api/v1/users/{id}:
+ * /api/v1/users/{userId}:
  *   get:
  *     security:
  *       - BearerAuth: []
@@ -133,7 +135,7 @@ router.get('/me', requireAuth, requireAuth, userController.getMe)
  *     description: Retrieve a single user by ID.
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: userId
  *         schema:
  *           type: integer
  *         required: true
@@ -201,9 +203,10 @@ router.get('/:userId', requireAuth, userController.getOneUser)
  *                 message:
  *                   type: string
  *                   example: User created
- *                 id:
+ *                 userId:
  *                   type: integer
  *                   description: The ID of the created user.
+ *                   example: 1
  *       409:
  *         description: User already exists
  *         content:
@@ -214,6 +217,18 @@ router.get('/:userId', requireAuth, userController.getOneUser)
  *                 message:
  *                   type: string
  *                   example: User already exists
+ *       422:
+ *         description: Validation Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   example: "'email' is required"
  *       500:
  *         description: Error occurred while creating the user.
  *         content:
@@ -228,11 +243,11 @@ router.get('/:userId', requireAuth, userController.getOneUser)
  *                   type: string
  *                   example: Error message
  */
-router.post('/', requireAuth, userController.createNewUser)
+router.post('/', requireAuth, validateSchema(userCreateSchema), userController.createNewUser)
 
 /**
  * @swagger
- * /api/v1/users/{id}:
+ * /api/v1/users/{userId}:
  *   put:
  *     security:
  *       - BearerAuth: []
@@ -241,7 +256,7 @@ router.post('/', requireAuth, userController.createNewUser)
  *     description: Update an existing user by ID.
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: userId
  *         schema:
  *           type: integer
  *         required: true
@@ -265,6 +280,18 @@ router.post('/', requireAuth, userController.createNewUser)
  *                   example: User updated
  *       404:
  *         description: User not found.
+ *       422:
+ *         description: Validation Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   example: "'email' is required"
  *       500:
  *         description: Error occurred while updating the user.
  *         content:
@@ -279,11 +306,11 @@ router.post('/', requireAuth, userController.createNewUser)
  *                   type: string
  *                   example: Error message
  */
-router.put('/:userId', requireAuth, userController.updateOneUser)
+router.put('/:userId', requireAuth, validateSchema(userCreateSchema), userController.updateOneUser)
 
 /**
  * @swagger
- * /api/v1/users/{id}:
+ * /api/v1/users/{userId}:
  *   delete:
  *     security:
  *       - BearerAuth: []
@@ -292,7 +319,7 @@ router.put('/:userId', requireAuth, userController.updateOneUser)
  *     description: Delete an existing user by ID.
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: userId
  *         schema:
  *           type: integer
  *         required: true
