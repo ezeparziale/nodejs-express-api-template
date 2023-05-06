@@ -8,12 +8,7 @@ const options = {
       title: 'Template API NodeJS+Express',
       version: '1.0.0',
       description: 'Test API'
-    },
-    servers: [
-      {
-        url: 'http://localhost:3000'
-      }
-    ]
+    }
   },
   apis: ['./src/routes/*.js']
 }
