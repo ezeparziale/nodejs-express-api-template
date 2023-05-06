@@ -8,7 +8,12 @@ const getAllUser = async (req, res) => {
   const offset = (page - 1) * limit
 
   try {
-    const posts = await User.findAll({ limit, offset, order: [['createdAt', 'DESC']] })
+    const posts = await User.findAll({
+      limit,
+      offset,
+      order: [['createdAt', 'DESC']],
+      attributes: ['id', 'email']
+    })
     res.status(200).json(posts)
   } catch (error) {
     console.error(error)
@@ -20,7 +25,10 @@ const getOneUser = async (req, res) => {
   const id = req.params.userId
 
   try {
-    const user = await User.findOne({ where: { id } })
+    const user = await User.findOne({
+      where: { id },
+      attributes: ['id', 'email']
+    })
     if (user) {
       res.status(200).json(user)
     } else {
@@ -33,10 +41,11 @@ const getOneUser = async (req, res) => {
 }
 
 const createNewUser = async (req, res) => {
+  const { email, password } = req.body
   try {
-    const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
+    const passwordHash = await bcrypt.hash(password, saltRounds)
     const newUser = await User.create({
-      email: req.body.email,
+      email,
       password: passwordHash
     })
     res.status(201).json({
@@ -51,12 +60,21 @@ const createNewUser = async (req, res) => {
 
 const updateOneUser = async (req, res) => {
   const id = req.params.userId
+  const { email, password } = req.body
+
+  const passwordHash = await bcrypt.hash(password, saltRounds)
 
   try {
     const user = await User.findOne({ where: { id } })
 
     if (user) {
-      await User.update(req.body, { where: { id } })
+      await User.update(
+        {
+          email,
+          password: passwordHash
+        },
+        { where: { id } }
+      )
       res.status(200).json({ message: 'User updated' })
     } else {
       res.status(404).send()
@@ -86,7 +104,10 @@ const getMe = async (req, res) => {
   const id = req.userId
 
   try {
-    const user = await User.findOne({ where: { id } })
+    const user = await User.findOne({
+      where: { id },
+      attributes: ['id', 'email']
+    })
     if (user) {
       res.status(200).json(user)
     } else {
