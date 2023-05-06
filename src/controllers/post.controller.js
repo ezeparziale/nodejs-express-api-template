@@ -1,4 +1,5 @@
 const Post = require('../models/post.model')
+const User = require('../models/user.model')
 
 const getAllPost = async (req, res) => {
   const page = req.query.page || 1
@@ -6,7 +7,14 @@ const getAllPost = async (req, res) => {
   const offset = (page - 1) * limit
 
   try {
-    const posts = await Post.findAll({ limit, offset, order: [['createdAt', 'DESC']] })
+    const posts = await Post.findAll(
+      {
+        limit,
+        offset,
+        order: [['createdAt', 'DESC']],
+        include: [{ model: User, attributes: ['id', 'email'] }]
+      }
+    )
     res.status(200).json(posts)
   } catch (error) {
     console.error(error)
@@ -18,7 +26,12 @@ const getOnePost = async (req, res) => {
   const id = req.params.postId
 
   try {
-    const post = await Post.findOne({ where: { id } })
+    const post = await Post.findOne(
+      {
+        where: { id },
+        include: [{ model: User, attributes: ['id', 'email'] }]
+      }
+    )
     if (post) {
       res.status(200).json(post)
     } else {
