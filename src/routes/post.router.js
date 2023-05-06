@@ -46,6 +46,18 @@ const router = express.Router()
  *           format: date-time
  *           description: The date and time that the post was last updated
  *           example: "2023-01-01T00:00:00Z"
+ *         User:
+ *           type: object
+ *           properties:
+ *             id:
+ *               type: integer
+ *               format: int64
+ *               description: ID of the user
+ *               example: 1
+ *             email:
+ *               type: string
+ *               description: Email of the user
+ *               example: user@example.com
  *     PostCreate:
  *       type: object
  *       properties:
