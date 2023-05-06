@@ -36,6 +36,7 @@ User.hasMany(Post,
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   })
+Post.belongsTo(User, { foreignKey: 'authorId' })
 
 User.hasMany(Vote,
   {
