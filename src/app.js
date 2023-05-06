@@ -3,6 +3,7 @@ const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const { BACKEND_CORS_ORIGINS } = require('./configs/general.config')
 const { swaggerSpec, swaggerUi } = require('./utils/swagger.util')
 const authRouter = require('./routes/auth.router')
 const postRouter = require('./routes/post.router')
@@ -10,7 +11,13 @@ const userRouter = require('./routes/user.router')
 const voteRouter = require('./routes/vote.router')
 
 // Middlewares
-app.use(cors())
+const corsOptions = {
+  origin: BACKEND_CORS_ORIGINS,
+  credentials: true,
+  methods: '*',
+  allowedHeaders: '*'
+}
+app.use(cors(corsOptions))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan('dev'))
 app.use(express.json({
