@@ -43,6 +43,12 @@ const getOneUser = async (req, res) => {
 const createNewUser = async (req, res) => {
   const { email, password } = req.body
   try {
+    const userExists = await User.findOne({ where: { email } })
+
+    if (userExists) {
+      return res.status(409).json({ message: 'User already exists' })
+    }
+
     const passwordHash = await bcrypt.hash(password, saltRounds)
     const newUser = await User.create({
       email,
