@@ -187,10 +187,11 @@ router.get('/:postId', requireAuth, postController.getOnePost)
  *     tags: [Posts]
  *     summary: Create a post
  *     description: Create a new post
- *     parameters:
- *       - in: body
- *         title: title os post
- *         schema:
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
  *             $ref: '#/components/schemas/PostCreate'
  *     responses:
  *       201:
