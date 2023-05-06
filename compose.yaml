@@ -1,10 +1,26 @@
 services:
 
+  server-api:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+    networks:
+      - node_demo_net
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   postgres:
     image: postgres:15.2
     hostname: postgres_db
     container_name: postgres_db
     restart: always
+    user: ${POSTGRES_USER}
     ports:
       - 5432:5432
     environment:
@@ -15,6 +31,11 @@ services:
       - postgres-db:/var/lib/postgresql/data
     networks:
       - node_demo_net
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   adminer:
     image: adminer:4.8.1
