@@ -22,14 +22,14 @@ const loginUser = async (req, res) => {
 }
 
 const registerUser = async (req, res) => {
-  const { email, password } = req.body
+  const { username, password } = req.body
 
   try {
-    if (!(email && password)) {
+    if (!(username && password)) {
       return res.status(400).json({ message: 'Email and password are required' })
     }
 
-    const userExists = await User.findOne({ where: { email } })
+    const userExists = await User.findOne({ where: { email: username } })
 
     if (userExists) {
       return res.status(409).json({ message: 'User already exists' })
@@ -38,7 +38,7 @@ const registerUser = async (req, res) => {
     const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
 
     const newUser = await User.create({
-      email: req.body.email,
+      email: username,
       password: passwordHash
     })
 
