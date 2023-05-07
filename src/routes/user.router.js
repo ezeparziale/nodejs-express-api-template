@@ -185,7 +185,7 @@ router.get('/:userId', requireAuth, userController.getOneUser)
  *                 type: string
  *                 format: email
  *                 description: The user's email address.
- *                 example: johndoe@example.dom
+ *                 example: johndoe@example.com
  *               password:
  *                 type: string
  *                 format: password
