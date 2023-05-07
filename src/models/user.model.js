@@ -45,5 +45,6 @@ User.hasMany(Vote,
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   })
+Vote.belongsTo(User, { foreignKey: 'userId' })
 
 module.exports = User

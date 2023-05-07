@@ -35,10 +35,11 @@ Post.init({
 
 Post.hasMany(Vote,
   {
-    as: 'post',
+    as: 'vote',
     foreignKey: 'postId',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   })
+Vote.belongsTo(Post, { foreignKey: 'postId', as: 'vote' })
 
 module.exports = Post

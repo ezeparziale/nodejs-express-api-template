@@ -1,5 +1,7 @@
+const { Sequelize } = require('sequelize')
 const Post = require('../models/post.model')
 const User = require('../models/user.model')
+const Vote = require('../models/vote.model')
 
 const getAllPost = async (req, res) => {
   const page = req.query.page || 1
@@ -12,7 +14,25 @@ const getAllPost = async (req, res) => {
         limit,
         offset,
         order: [['createdAt', 'DESC']],
-        include: [{ model: User, attributes: ['id', 'email'] }]
+        attributes: {
+          include: [
+            [Sequelize.fn('COUNT', Sequelize.col('vote.postId')), 'votes']
+          ]
+        },
+        include: [
+          {
+            model: User,
+            attributes: ['id', 'email'],
+            required: false
+          },
+          {
+            model: Vote,
+            attributes: [],
+            duplicating: false,
+            as: 'vote'
+          }
+        ],
+        group: ['Post.id', 'User.id']
       }
     )
     res.status(200).json(posts)
@@ -29,7 +49,24 @@ const getOnePost = async (req, res) => {
     const post = await Post.findOne(
       {
         where: { id },
-        include: [{ model: User, attributes: ['id', 'email'] }]
+        attributes: {
+          include: [
+            Sequelize.col('Post.*'),
+            [Sequelize.fn('COUNT', Sequelize.col('vote.postId')), 'votes']
+          ]
+        },
+        include: [
+          {
+            model: User,
+            attributes: ['id', 'email']
+          },
+          {
+            model: Vote,
+            attributes: [],
+            as: 'vote'
+          }
+        ],
+        group: ['Post.id', 'User.id']
       }
     )
     if (post) {

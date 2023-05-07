@@ -46,6 +46,10 @@ const router = express.Router()
  *           format: date-time
  *           description: The date and time that the post was last updated
  *           example: "2023-01-01T00:00:00Z"
+ *         votes:
+ *           type: int
+ *           description: Count of votes
+ *           example: 2
  *         User:
  *           type: object
  *           properties:
