@@ -22,7 +22,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:14.7
+        image: postgres:15.2
         env:
           POSTGRES_USER: ${{secrets.POSTGRES_USER}}
           POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
