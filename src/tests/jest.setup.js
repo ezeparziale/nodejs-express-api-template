@@ -73,5 +73,5 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  db.close()
+  await db.close()
 })
