@@ -4,7 +4,6 @@ const app = require('../app')
 const api = supertest(app)
 
 describe('Test Post endpoint', () => {
-
   test('get all posts', async () => {
     const resp = await api
       .get('/api/v1/posts')
