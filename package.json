@@ -38,9 +38,11 @@
   "eslintConfig": {
     "extends": "./node_modules/standard/eslintrc.json",
     "env": {
-      "node": true,
-      "jest": true
+      "node": true
     }
+  },
+  "standard": {
+    "env": ["jest"]
   },
   "jest": {
     "testEnvironment": "node",
