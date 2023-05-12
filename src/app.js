@@ -9,6 +9,7 @@ const authRouter = require('./routes/auth.router')
 const postRouter = require('./routes/post.router')
 const userRouter = require('./routes/user.router')
 const voteRouter = require('./routes/vote.router')
+const healthRouter = require('./routes/health.router')
 
 // Middlewares
 const corsOptions = {
@@ -34,6 +35,7 @@ app.use(express.json({
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 // Routes
+app.use('/health', healthRouter)
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/posts', postRouter)
 app.use('/api/v1/users', userRouter)
