@@ -2,23 +2,39 @@ name: Testing
 
 on: [push, pull_request]
 
+env:
+  ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
+  ALGORITHM: ${{secrets.ALGORITHM}}
+  BACKEND_CORS_ORIGINS: ${{secrets.BACKEND_CORS_ORIGINS}}
+  POSTGRES_DB: ${{secrets.POSTGRES_DB}}
+  POSTGRES_HOSTNAME: ${{secrets.POSTGRES_HOSTNAME}}
+  POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+  POSTGRES_PORT: ${{secrets.POSTGRES_PORT}}
+  POSTGRES_USER: ${{secrets.POSTGRES_USER}}
+  SECRET_KEY: ${{secrets.SECRET_KEY}}
+
 jobs:
+
+  lint:
+    environment:
+      name: test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - run: npm ci
+      - name: Linting
+        run: npm run lint
 
   testing:
 
     environment:
       name: test
-      
-    env:
-      ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
-      ALGORITHM: ${{secrets.ALGORITHM}}
-      BACKEND_CORS_ORIGINS: ${{secrets.BACKEND_CORS_ORIGINS}}
-      POSTGRES_DB: ${{secrets.POSTGRES_DB}}
-      POSTGRES_HOSTNAME: ${{secrets.POSTGRES_HOSTNAME}}
-      POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
-      POSTGRES_PORT: ${{secrets.POSTGRES_PORT}}
-      POSTGRES_USER: ${{secrets.POSTGRES_USER}}
-      SECRET_KEY: ${{secrets.SECRET_KEY}}
 
     services:
       postgres:
@@ -39,7 +55,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [18.x, 20.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -49,4 +65,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run build --if-present
-      - run: npm test
+      - name: Testing
+        run: npm test
