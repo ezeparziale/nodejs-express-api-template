@@ -17,6 +17,8 @@ const sequelize = new Sequelize(POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD, {
   logging: false
 })
 
-sequelize.sync() // { force: true }
+if (process.env.NODE_ENV !== 'test') {
+  sequelize.sync()
+}
 
 module.exports = sequelize
