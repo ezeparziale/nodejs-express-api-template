@@ -2,12 +2,12 @@ require('dotenv').config()
 
 // Server
 const PORT = process.env.PORT || 3000
+const BACKEND_CORS_ORIGINS = process.env.BACKEND_CORS_ORIGINS || '*'
 
-// Api
+// Jwt
 const SECRET_KEY = process.env.SECRET_KEY || 3000
 const ALGORITHM = process.env.ALGORITHM || 3000
 const ACCESS_TOKEN_EXPIRE_MINUTES = process.env.ACCESS_TOKEN_EXPIRE_MINUTES || 3000
-const BACKEND_CORS_ORIGINS = process.env.BACKEND_CORS_ORIGINS || '*'
 
 // Postgres Database
 const POSTGRES_HOSTNAME = process.env.POSTGRES_HOSTNAME || 3000
