@@ -12,7 +12,7 @@ npm install
 npm run dev
 ```
 
-## :pushpin: Features:
+## :pushpin: Features
 
 - Nodejs
 - Express
@@ -26,4 +26,6 @@ npm run dev
 - Tests
 - JWT
 - BCrypt
+- Joi
+- Health
   
