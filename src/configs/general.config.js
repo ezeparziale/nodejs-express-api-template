@@ -4,6 +4,9 @@ require('dotenv').config()
 const PORT = process.env.PORT || 3000
 const BACKEND_CORS_ORIGINS = process.env.BACKEND_CORS_ORIGINS || '*'
 
+// Bcrypt
+const SALT = process.env.SALT || 10
+
 // Jwt
 const SECRET_KEY = process.env.SECRET_KEY
 const ALGORITHM = process.env.ALGORITHM || 'HS256'
@@ -18,6 +21,7 @@ const POSTGRES_DB = process.env.POSTGRES_DB
 
 module.exports = {
   PORT,
+  SALT,
   SECRET_KEY,
   ALGORITHM,
   ACCESS_TOKEN_EXPIRE_MINUTES,

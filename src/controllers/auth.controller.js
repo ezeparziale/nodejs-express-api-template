@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const saltRounds = 10
+const { SALT } = require('../configs/general.config')
 const User = require('../models/user.model')
 const { createAccessToken } = require('../utils/jwt.util')
 
@@ -35,7 +35,7 @@ const registerUser = async (req, res) => {
       return res.status(409).json({ message: 'User already exists' })
     }
 
-    const passwordHash = await bcrypt.hash(req.body.password, saltRounds)
+    const passwordHash = await bcrypt.hash(req.body.password, SALT)
 
     const newUser = await User.create({
       email: username,

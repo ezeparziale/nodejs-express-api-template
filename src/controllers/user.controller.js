@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const saltRounds = 10
+const { SALT } = require('../configs/general.config')
 const User = require('../models/user.model')
 
 const getAllUser = async (req, res) => {
@@ -49,7 +49,7 @@ const createNewUser = async (req, res) => {
       return res.status(409).json({ message: 'User already exists' })
     }
 
-    const passwordHash = await bcrypt.hash(password, saltRounds)
+    const passwordHash = await bcrypt.hash(password, SALT)
     const newUser = await User.create({
       email,
       password: passwordHash
@@ -68,7 +68,7 @@ const updateOneUser = async (req, res) => {
   const id = req.params.userId
   const { email, password } = req.body
 
-  const passwordHash = await bcrypt.hash(password, saltRounds)
+  const passwordHash = await bcrypt.hash(password, SALT)
 
   try {
     const user = await User.findOne({ where: { id } })
