@@ -12,7 +12,7 @@ services:
     networks:
       - node_demo_net
     depends_on:
-      postgres:
+      db:
         condition: service_healthy
 
   db:
