@@ -26,7 +26,8 @@ User.init({
   }
 }, {
   sequelize,
-  tableName: 'users'
+  tableName: 'users',
+  underscored: true
 })
 
 User.hasMany(Post,

@@ -30,7 +30,8 @@ Post.init({
   }
 }, {
   sequelize,
-  tableName: 'posts'
+  tableName: 'posts',
+  underscored: true
 })
 
 Post.hasMany(Vote,

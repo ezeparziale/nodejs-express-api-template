@@ -17,7 +17,8 @@ Vote.init({
   }
 }, {
   sequelize,
-  tableName: 'votes'
+  tableName: 'votes',
+  underscored: true
 })
 
 module.exports = Vote
