@@ -278,6 +278,8 @@ router.post('/', requireAuth, validateSchema(userCreateSchema), userController.c
  *                 message:
  *                   type: string
  *                   example: User updated
+ *       403:
+ *         description: Not authorized to perform requested action
  *       404:
  *         description: User not found.
  *       422:
@@ -327,6 +329,8 @@ router.put('/:userId', requireAuth, validateSchema(userCreateSchema), userContro
  *     responses:
  *       204:
  *         description: User deleted successfully.
+ *       403:
+ *         description: Not authorized to perform requested action
  *       404:
  *         description: User not found.
  *       500:
