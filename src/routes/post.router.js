@@ -288,6 +288,8 @@ router.post('/', requireAuth, validateSchema(postCreateSchema), postController.c
  *                 message:
  *                   type: string
  *                   example: Invalid JSON
+ *       403:
+ *         description: Not authorized to perform requested action
  *       404:
  *         description: Post not found
  *       422:
@@ -337,14 +339,8 @@ router.put('/:postId', requireAuth, validateSchema(postEditSchema), postControll
  *     responses:
  *       204:
  *         description: Post deleted successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Post deleted
+ *       403:
+ *         description: Not authorized to perform requested action
  *       404:
  *         description: Post not found
  *       500:
