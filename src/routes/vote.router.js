@@ -31,14 +31,18 @@ const router = express.Router()
  *       example:
  *         postId: 1
  *         dir: 1
- *     VoteOutput:
+ *     VoteAddedOutput:
  *       type: object
  *       properties:
  *         message:
  *           type: string
- *           enum: [Successfully added vote, Successfully deleted vote]
- *       example:
- *         message: Successfully added vote
+ *           example: Successfully added vote
+ *     VoteDeletedOutput:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: Successfully deleted vote
  */
 
 /**
@@ -58,11 +62,17 @@ const router = express.Router()
  *             $ref: '#/components/schemas/VoteInput'
  *     responses:
  *       201:
- *         description: Successfully vote added or deleted
+ *         description: Successfully vote added
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/VoteOutput'
+ *               $ref: '#/components/schemas/VoteAddedOutput'
+ *       204:
+ *         description: Successfully vote deleted
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/VoteDeletedOutput'
  *       404:
  *         description: Post not found or vote not found
  *         content:
