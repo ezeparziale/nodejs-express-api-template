@@ -34,7 +34,7 @@ const postTest3 = {
   content: 'Test content 3'
 }
 
-beforeAll(async () => {
+beforeEach(async () => {
   await db.sync({ force: true })
 
   // Create users
@@ -43,14 +43,14 @@ beforeAll(async () => {
     email: userTest1.email,
     password: passwordHash1
   })
-  await newUserTest1.reload()
+  global.testUser1 = await newUserTest1.reload()
 
   const passwordHash2 = await bcrypt.hash(userTest2.password, saltRounds)
   const newUserTest2 = await User.create({
     email: userTest2.email,
     password: passwordHash2
   })
-  await newUserTest2.reload()
+  global.testUser2 = await newUserTest2.reload()
 
   // Create post
   const newPostTest1 = await Post.create({
