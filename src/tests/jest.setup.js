@@ -24,6 +24,16 @@ const postTest1 = {
   content: 'Test content 1'
 }
 
+const postTest2 = {
+  title: 'Test title 2',
+  content: 'Test content 2'
+}
+
+const postTest3 = {
+  title: 'Test title 3',
+  content: 'Test content 3'
+}
+
 beforeAll(async () => {
   await db.sync({ force: true })
 
@@ -43,22 +53,36 @@ beforeAll(async () => {
   await newUserTest2.reload()
 
   // Create post
-  const newPostTest = await Post.create({
+  const newPostTest1 = await Post.create({
     title: postTest1.title,
     content: postTest1.content,
     authorId: newUserTest1.id
   })
-  await newPostTest.reload()
+  global.testPost1 = await newPostTest1.reload()
+
+  const newPostTest2 = await Post.create({
+    title: postTest2.title,
+    content: postTest2.content,
+    authorId: newUserTest2.id
+  })
+  global.testPost2 = await newPostTest2.reload()
+
+  const newPostTest3 = await Post.create({
+    title: postTest3.title,
+    content: postTest3.content,
+    authorId: newUserTest1.id
+  })
+  global.testPost3 = await newPostTest3.reload()
 
   // Create votes
   await Vote.create({
     userId: newUserTest1.id,
-    postId: newPostTest.id
+    postId: newPostTest1.id
   })
 
   await Vote.create({
     userId: newUserTest2.id,
-    postId: newPostTest.id
+    postId: newPostTest1.id
   })
 
   const response = await api
