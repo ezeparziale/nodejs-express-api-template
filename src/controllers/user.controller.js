@@ -71,38 +71,47 @@ const updateOneUser = async (req, res) => {
   const passwordHash = await bcrypt.hash(password, SALT)
 
   try {
-    const user = await User.findOne({ where: { id } })
+    const user = await User.findByPk(id)
 
     if (user) {
-      await User.update(
-        {
-          email,
-          password: passwordHash
-        },
-        { where: { id } }
-      )
-      res.status(200).json({ message: 'User updated' })
+      if (user.id === req.userId) {
+        await User.update(
+          {
+            email,
+            password: passwordHash
+          },
+          { where: { id } }
+        )
+        return res.status(200).json({ message: 'User updated' })
+      } else {
+        return res.status(403).send()
+      }
     } else {
-      res.status(404).send()
+      return res.status(404).send()
     }
   } catch (error) {
     console.error(error)
-    res.status(500).json({ message: 'Error updating user', error: error.message })
+    return res.status(500).json({ message: 'Error updating user', error: error.message })
   }
 }
 
 const deleteOneUser = async (req, res) => {
   const id = req.params.userId
   try {
-    const deleteUser = await User.destroy({ where: { id } })
-    if (deleteUser) {
-      res.status(204).json({ message: 'User deleted successfully' })
+    const user = await User.findByPk(id)
+    if (user) {
+      if (user.id === req.userId) {
+        await User.destroy({ where: { id } })
+        return res.status(204).send()
+      } else {
+        return res.status(403).send()
+      }
     } else {
-      res.status(404).send()
+      return res.status(404).send()
     }
   } catch (error) {
     console.error(error)
-    res.status(500).json({ message: 'Error deleting user', error: error.message })
+    return res.status(500).json({ message: 'Error deleting user', error: error.message })
   }
 }
 
