@@ -98,13 +98,16 @@ const updateOnePost = async (req, res) => {
   const id = req.params.postId
 
   try {
-    const post = await Post.findOne({ where: { id } })
-
+    const post = await Post.findByPk(id)
     if (post) {
-      await Post.update(req.body, { where: { id } })
-      res.status(200).json({ message: 'Post updated' })
+      if (post.authorId === req.userId) {
+        await Post.update(req.body, { where: { id } })
+        res.status(200).json({ message: 'Post updated' })
+      } else {
+        return res.status(403).send()
+      }
     } else {
-      res.status(404).send()
+      return res.status(404).send()
     }
   } catch (error) {
     console.error(error)
@@ -115,9 +118,14 @@ const updateOnePost = async (req, res) => {
 const deleteOnePost = async (req, res) => {
   const id = req.params.postId
   try {
-    const deletePost = await Post.destroy({ where: { id } })
-    if (deletePost) {
-      return res.status(204).json({ message: 'Post deleted' })
+    const post = await Post.findByPk(id)
+    if (post) {
+      if (post.authorId === req.userId) {
+        await Post.destroy({ where: { id } })
+        return res.status(204).send()
+      } else {
+        return res.status(403).send()
+      }
     } else {
       return res.status(404).send()
     }
