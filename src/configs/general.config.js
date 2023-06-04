@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000
 const BACKEND_CORS_ORIGINS = process.env.BACKEND_CORS_ORIGINS || '*'
 
 // Bcrypt
-const SALT = process.env.SALT || 10
+const SALT = Number(process.env.SALT) || 10
 
 // Jwt
 const SECRET_KEY = process.env.SECRET_KEY
