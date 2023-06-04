@@ -22,7 +22,7 @@ const createVote = async (req, res) => {
           return res.status(404).json({ message: 'Vote not exits' })
         }
         await Vote.destroy({ where: { postId, userId } })
-        return res.status(201).json({
+        return res.status(204).json({
           message: 'Succefully deleted vote'
         })
       }
