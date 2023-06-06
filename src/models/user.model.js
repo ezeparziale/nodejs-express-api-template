@@ -33,19 +33,19 @@ User.init({
 User.hasMany(Post,
   {
     as: 'author',
-    foreignKey: 'authorId',
+    foreignKey: 'author_id',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   })
-Post.belongsTo(User, { foreignKey: 'authorId' })
+Post.belongsTo(User, { foreignKey: 'author_id' })
 
 User.hasMany(Vote,
   {
     as: 'user',
-    foreignKey: 'userId',
+    foreignKey: 'user_id',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   })
-Vote.belongsTo(User, { foreignKey: 'userId' })
+Vote.belongsTo(User, { foreignKey: 'user_id' })
 
 module.exports = User

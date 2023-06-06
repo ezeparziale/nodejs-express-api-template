@@ -56,33 +56,33 @@ beforeEach(async () => {
   const newPostTest1 = await Post.create({
     title: postTest1.title,
     content: postTest1.content,
-    authorId: newUserTest1.id
+    author_id: newUserTest1.id
   })
   global.testPost1 = await newPostTest1.reload()
 
   const newPostTest2 = await Post.create({
     title: postTest2.title,
     content: postTest2.content,
-    authorId: newUserTest2.id
+    author_id: newUserTest2.id
   })
   global.testPost2 = await newPostTest2.reload()
 
   const newPostTest3 = await Post.create({
     title: postTest3.title,
     content: postTest3.content,
-    authorId: newUserTest1.id
+    author_id: newUserTest1.id
   })
   global.testPost3 = await newPostTest3.reload()
 
   // Create votes
   await Vote.create({
-    userId: newUserTest1.id,
-    postId: newPostTest1.id
+    user_id: newUserTest1.id,
+    post_id: newPostTest1.id
   })
 
   await Vote.create({
-    userId: newUserTest2.id,
-    postId: newPostTest1.id
+    user_id: newUserTest2.id,
+    post_id: newPostTest1.id
   })
 
   const response = await api

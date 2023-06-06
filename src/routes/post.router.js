@@ -36,12 +36,12 @@ const router = express.Router()
  *           type: boolean
  *           description: Specifies whether the post has been published or not
  *           example: true
- *         createdAt:
+ *         created_at:
  *           type: string
  *           format: date-time
  *           description: The date and time that the post was created
  *           example: "2023-01-01T00:00:00Z"
- *         updatedAt:
+ *         updated_at:
  *           type: string
  *           format: date-time
  *           description: The date and time that the post was last updated

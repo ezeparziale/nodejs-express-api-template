@@ -5,12 +5,12 @@ const sequelize = require('../configs/db.config')
 class Vote extends Model { }
 
 Vote.init({
-  userId: {
+  user_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true
   },
-  postId: {
+  post_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true

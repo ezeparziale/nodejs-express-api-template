@@ -13,10 +13,10 @@ const getAllPost = async (req, res) => {
       {
         limit,
         offset,
-        order: [['createdAt', 'DESC']],
+        order: [['created_at', 'DESC']],
         attributes: {
           include: [
-            [Sequelize.fn('COUNT', Sequelize.col('vote.postId')), 'votes']
+            [Sequelize.fn('COUNT', Sequelize.col('vote.post_id')), 'votes']
           ]
         },
         include: [
@@ -52,7 +52,7 @@ const getOnePost = async (req, res) => {
         attributes: {
           include: [
             Sequelize.col('Post.*'),
-            [Sequelize.fn('COUNT', Sequelize.col('vote.postId')), 'votes']
+            [Sequelize.fn('COUNT', Sequelize.col('vote.post_id')), 'votes']
           ]
         },
         include: [
@@ -83,7 +83,7 @@ const getOnePost = async (req, res) => {
 const createNewPost = async (req, res) => {
   const authorId = req.userId
   try {
-    const newPost = await Post.create({ ...req.body, authorId })
+    const newPost = await Post.create({ ...req.body, author_id: authorId })
     res.status(201).json({
       message: 'Post created',
       postId: newPost.id
@@ -100,7 +100,7 @@ const updateOnePost = async (req, res) => {
   try {
     const post = await Post.findByPk(id)
     if (post) {
-      if (post.authorId === req.userId) {
+      if (post.author_id === req.userId) {
         await Post.update(req.body, { where: { id } })
         res.status(200).json({ message: 'Post updated' })
       } else {
@@ -120,7 +120,7 @@ const deleteOnePost = async (req, res) => {
   try {
     const post = await Post.findByPk(id)
     if (post) {
-      if (post.authorId === req.userId) {
+      if (post.author_id === req.userId) {
         await Post.destroy({ where: { id } })
         return res.status(204).send()
       } else {

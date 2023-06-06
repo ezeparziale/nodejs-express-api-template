@@ -24,7 +24,7 @@ Post.init({
     allowNull: false,
     defaultValue: false
   },
-  authorId: {
+  author_id: {
     type: DataTypes.INTEGER,
     allowNull: false
   }
@@ -37,10 +37,10 @@ Post.init({
 Post.hasMany(Vote,
   {
     as: 'vote',
-    foreignKey: 'postId',
+    foreignKey: 'post_id',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   })
-Vote.belongsTo(Post, { foreignKey: 'postId', as: 'vote' })
+Vote.belongsTo(Post, { foreignKey: 'post_id', as: 'vote' })
 
 module.exports = Post
