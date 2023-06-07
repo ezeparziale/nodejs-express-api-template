@@ -25,9 +25,21 @@ const router = express.Router()
  *         email:
  *           type: string
  *           description: The user's email address.
+*         created_at:
+ *           type: string
+ *           format: date-time
+ *           description: The date and time that the user was created
+ *           example: "2023-01-01T00:00:00Z"
+ *         updated_at:
+ *           type: string
+ *           format: date-time
+ *           description: The date and time that the user was last updated
+ *           example: "2023-01-01T00:00:00Z"
  *       example:
  *         id: 1
  *         email: johndoe@example.com
+ *         created_at: "2023-01-01T00:00:00Z"
+ *         updated_at: "2023-01-01T00:00:00Z"
  *     UserUpdateInput:
  *       type: object
  *       properties:

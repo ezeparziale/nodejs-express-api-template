@@ -8,13 +8,13 @@ const getAllUser = async (req, res) => {
   const offset = (page - 1) * limit
 
   try {
-    const posts = await User.findAll({
+    const users = await User.findAll({
       limit,
       offset,
       order: [['created_at', 'DESC']],
-      attributes: ['id', 'email']
+      attributes: ['id', 'email', 'created_at', 'updated_at']
     })
-    res.status(200).json(posts)
+    res.status(200).json(users)
   } catch (error) {
     console.error(error)
     res.status(500).json({ message: 'Error fetching users', error: error.message })
@@ -27,7 +27,7 @@ const getOneUser = async (req, res) => {
   try {
     const user = await User.findOne({
       where: { id },
-      attributes: ['id', 'email']
+      attributes: ['id', 'email', 'created_at', 'updated_at']
     })
     if (user) {
       res.status(200).json(user)
@@ -121,7 +121,7 @@ const getMe = async (req, res) => {
   try {
     const user = await User.findOne({
       where: { id },
-      attributes: ['id', 'email']
+      attributes: ['id', 'email', 'created_at', 'updated_at']
     })
     if (user) {
       res.status(200).json(user)
