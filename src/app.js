@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const { BACKEND_CORS_ORIGINS } = require('./configs/general.config')
 const { swaggerSpec, swaggerUi } = require('./utils/swagger.util')
+const responseTime = require('response-time')
 const authRouter = require('./routes/auth.router')
 const postRouter = require('./routes/post.router')
 const userRouter = require('./routes/user.router')
@@ -19,6 +20,9 @@ const corsOptions = {
   allowedHeaders: '*'
 }
 app.use(cors(corsOptions))
+app.use(responseTime({
+  header: 'process-time'
+}))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(morgan('dev'))
 app.use(express.json({
