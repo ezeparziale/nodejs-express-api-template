@@ -24,6 +24,7 @@
     "morgan": "1.10.0",
     "pg": "8.10.0",
     "pg-hstore": "2.3.4",
+    "response-time": "2.3.2",
     "sequelize": "6.31.1",
     "sqlite3": "5.1.6",
     "swagger-jsdoc": "6.2.8",
@@ -44,7 +45,9 @@
     }
   },
   "standard": {
-    "env": ["jest"]
+    "env": [
+      "jest"
+    ]
   },
   "jest": {
     "testEnvironment": "node",
