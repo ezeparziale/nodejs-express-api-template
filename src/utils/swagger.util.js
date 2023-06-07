@@ -1,12 +1,15 @@
 const swaggerUi = require('swagger-ui-express')
 const swaggerJsdoc = require('swagger-jsdoc')
+const path = require('path')
+const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json')
+const packageJson = require(packageJsonPath)
 
 const options = {
   definition: {
     openapi: '3.0.0',
     info: {
       title: 'Template API NodeJS+Express',
-      version: '1.0.0',
+      version: packageJson.version,
       description: 'Test API'
     }
   },
